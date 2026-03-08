@@ -1,83 +1,77 @@
-from fastapi import APIRouter, Depends
+from typing import Optional
+
+from fastapi import APIRouter, Depends, HTTPException, Query
 from app.models.user import User
 from app.core.dependencies import get_current_user
-from typing import List
+
+from app.recommender import engine
+from app.schemas.recommendation import RecommendationResponse, RecommendationItem
 
 router = APIRouter(prefix="/api/recommendations", tags=["Recommendations"])
 
-# ─────────────────────────────────────────────────────────────────────────────
-# PLACEHOLDER — AI recommendation engine not yet implemented.
-# Future: Replace this with a hybrid collaborative + content-based ML model.
-# Steps to integrate:
-#   1. Load user profile from DB (skills, interests, location, mode)
-#   2. Parse resume using NLP (spaCy / HuggingFace)
-#   3. Compute similarity scores between user vector and internship embeddings
-#   4. Return top 3–5 ranked matches with score and reason tokens
-# ─────────────────────────────────────────────────────────────────────────────
 
-DUMMY_RECOMMENDATIONS = [
-    {
-        "id": "rec-001",
-        "title": "Machine Learning Intern",
-        "company": "TechCorp AI",
-        "location": "Bangalore (Remote)",
-        "duration": "3 months",
-        "stipend": "₹20,000/month",
-        "match_score": 92,
-        "domain": "AI / Machine Learning",
-        "skills_required": ["Python", "TensorFlow", "scikit-learn"],
-        "apply_link": "https://example.com/apply/ml-intern",
-        "reasons": [
-            "Matches your AI interest",
-            "Python skill match",
-            "Available in preferred location",
-        ],
-    },
-    {
-        "id": "rec-002",
-        "title": "Data Science Intern",
-        "company": "DataWave Analytics",
-        "location": "Remote",
-        "duration": "2 months",
-        "stipend": "₹15,000/month",
-        "match_score": 87,
-        "domain": "Data Science",
-        "skills_required": ["Python", "Pandas", "SQL"],
-        "apply_link": "https://example.com/apply/ds-intern",
-        "reasons": [
-            "Matches your Data Science interest",
-            "SQL and Pandas skill alignment",
-            "Remote — matches your preference",
-        ],
-    },
-    {
-        "id": "rec-003",
-        "title": "Full Stack Developer Intern",
-        "company": "BuildRight Technologies",
-        "location": "Hyderabad",
-        "duration": "6 months",
-        "stipend": "₹18,000/month",
-        "match_score": 79,
-        "domain": "Web Development",
-        "skills_required": ["React", "Node.js", "PostgreSQL"],
-        "apply_link": "https://example.com/apply/fullstack-intern",
-        "reasons": [
-            "Matches your Web Development interest",
-            "React skill match",
-            "Stipend within expected range",
-        ],
-    },
-]
-
-
-@router.get("")
-def get_recommendations(current_user: User = Depends(get_current_user)):
+@router.get(
+    "",
+    response_model=RecommendationResponse,
+)
+def get_recommendations(
+    skills: str = Query(
+        ...,
+        description="User skills and interests (comma or space separated).",
+    ),
+    domain: Optional[str] = Query(
+        None,
+        description="Desired internship domain (optional).",
+    ),
+    location_region: Optional[str] = Query(
+        None,
+        description="Preferred location region (optional).",
+    ),
+    experience: Optional[str] = Query(
+        None,
+        description="Preferred experience level (optional).",
+    ),
+    current_user: User = Depends(get_current_user),
+) -> RecommendationResponse:
     """
-    Returns AI-matched internship recommendations for the authenticated user.
-    Currently returns curated dummy data — ML engine integration is pending.
+    Return AI-based internship recommendations for the authenticated user.
+
+    The endpoint requires authentication via get_current_user. Recommendations
+    are generated using semantic embeddings, FAISS vector search, rule-based
+    filtering, and weighted ranking.
     """
-    return {
-        "user": current_user.email,
-        "total": len(DUMMY_RECOMMENDATIONS),
-        "recommendations": DUMMY_RECOMMENDATIONS,
-    }
+    try:
+        results = engine.recommend(
+            skills=skills,
+            domain=domain,
+            location_region=location_region,
+            experience=experience,
+            top_k=5,
+        )
+    except ValueError as exc:
+        # e.g., empty skills query
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    except FileNotFoundError as exc:
+        raise HTTPException(
+            status_code=500,
+            detail="Internship dataset not found on the server.",
+        ) from exc
+    except RuntimeError as exc:
+        raise HTTPException(
+            status_code=503,
+            detail="Recommendation engine not initialized.",
+        ) from exc
+    except Exception as exc:  # pragma: no cover - defensive catch-all
+        raise HTTPException(
+            status_code=500,
+            detail="An unexpected error occurred while generating recommendations.",
+        ) from exc
+
+    items = [RecommendationItem(**item) for item in results]
+
+    return RecommendationResponse(
+        skills_query=skills,
+        total=len(items),
+        recommendations=items,
+    )
+
