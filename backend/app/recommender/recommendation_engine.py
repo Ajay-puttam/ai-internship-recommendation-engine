@@ -314,6 +314,56 @@ class RecommendationEngine:
 
         return filtered_no_loc
 
+    def _apply_domain_diversity(
+        self,
+        ranked: List[dict],
+        top_k: int = 5,
+        penalty: float = 0.90,
+        min_skill_match: float = 0.05,
+    ) -> List[dict]:
+        """
+        Apply soft domain diversity via score penalty.
+
+        For each additional result from the same domain,
+        apply a cumulative penalty to final_score.
+
+        Penalty per occurrence:
+            1st result from domain → no penalty (score × 1.0)
+            2nd result from domain → score × 0.90
+            3rd result from domain → score × 0.81 (0.90²)
+
+        Only applied when no domain filter is specified.
+        Prevents majority class dominance in open searches.
+        """
+        domain_counts: dict = {}
+        penalized: List[dict] = []
+
+        for result in ranked:
+            domain = result.get("domain", "")
+            count = domain_counts.get(domain, 0)
+            skill_match = result.get("skill_match_score", 0)
+
+            # Rule 1 — Never allow skill_match = 0 for any result
+            # Removes true zero-overlap results regardless of domain
+            if skill_match == 0:
+                continue
+
+            # Rule 2 — Apply floor to repeated domain results
+            # Keeps low but non-zero matches (0.05-0.15 range)
+            if count > 0:
+                if skill_match < min_skill_match:
+                    continue
+                penalized_score = result["final_score"] * (penalty ** count)
+                result = {**result, "final_score": round(penalized_score, 4)}
+
+            domain_counts[domain] = count + 1
+            penalized.append(result)
+
+        # Re-sort after penalty applied
+        penalized.sort(key=lambda x: x["final_score"], reverse=True)
+
+        return penalized[:top_k]
+
     def recommend(
         self,
         skills: str,
@@ -393,8 +443,16 @@ class RecommendationEngine:
             user_skills=skills_query,
             query_location=location_region,
             query_experience=experience,
-            top_n=top_k,
+            top_n=20,
         )
+
+        # Apply soft domain diversity only for open search
+        # When domain filter is active, user wants specific domain
+        # When domain filter is empty, apply diversity
+        if not domain:
+            ranked = self._apply_domain_diversity(ranked, top_k=top_k)
+        else:
+            ranked = ranked[:top_k]
 
         return ranked
 
