@@ -56,11 +56,11 @@ export default function DashboardLayout({
 
             {/* Sidebar */}
             <aside
-                className={`fixed top-0 left-0 h-full w-64 z-50 flex flex-col glass border-r border-white/10 transition-transform duration-300 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
+                className={`fixed top-0 left-0 h-full w-64 z-50 flex flex-col glass border-r border-border dark:border-white/10 transition-transform duration-300 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
                     } lg:translate-x-0 lg:static lg:z-auto`}
             >
                 {/* Logo */}
-                <div className="flex items-center gap-3 px-6 py-5 border-b border-white/10">
+                <div className="flex items-center gap-3 px-6 py-5 border-b border-border dark:border-white/10">
                     <div className="w-8 h-8 rounded-lg gradient-bg flex items-center justify-center">
                         <Brain className="w-5 h-5 text-white" />
                     </div>
@@ -97,7 +97,7 @@ export default function DashboardLayout({
                 </nav>
 
                 {/* Bottom: Theme + Logout */}
-                <div className="px-3 py-4 border-t border-white/10 space-y-1">
+                <div className="px-3 py-4 border-t border-border dark:border-white/10 space-y-1">
                     <button
                         onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
                         className="flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-sm font-medium text-muted-foreground hover:bg-accent hover:text-foreground transition-all"
@@ -117,7 +117,7 @@ export default function DashboardLayout({
             {/* Main content */}
             <div className="flex-1 flex flex-col min-h-screen lg:ml-0">
                 {/* Top bar (mobile) */}
-                <header className="lg:hidden flex items-center h-14 px-4 glass border-b border-white/10">
+                <header className="lg:hidden flex items-center h-14 px-4 glass border-b border-border dark:border-white/10">
                     <button onClick={() => setSidebarOpen(true)} className="p-2 rounded-lg hover:bg-accent">
                         <Menu className="w-5 h-5" />
                     </button>

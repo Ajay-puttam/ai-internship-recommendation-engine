@@ -11,7 +11,7 @@ export default function ProfileSettingsPage() {
                 </h1>
                 <p className="text-muted-foreground text-sm mt-1">Manage your account and preferences</p>
             </motion.div>
-            <div className="glass rounded-2xl border border-white/10 p-8 space-y-6">
+            <div className="glass rounded-2xl border border-border dark:border-white/10 p-8 space-y-6">
                 <p className="text-sm text-muted-foreground">
                     Edit your academic info, skills, and preferences to improve recommendation accuracy.
                 </p>

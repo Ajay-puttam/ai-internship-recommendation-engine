@@ -11,7 +11,7 @@ export default function ChatbotPage() {
                 </h1>
                 <p className="text-muted-foreground text-sm mt-1">AI career coach — available 24/7</p>
             </motion.div>
-            <div className="glass rounded-2xl border border-white/10 overflow-hidden">
+            <div className="glass rounded-2xl border border-border dark:border-white/10 overflow-hidden">
                 {/* Mock chat UI */}
                 <div className="h-96 p-6 space-y-4">
                     <div className="flex items-start gap-3">
@@ -30,7 +30,7 @@ export default function ChatbotPage() {
                         </div>
                     </div>
                 </div>
-                <div className="flex items-center gap-3 p-4 border-t border-white/10">
+                <div className="flex items-center gap-3 p-4 border-t border-border dark:border-white/10">
                     <input
                         disabled
                         placeholder="Chatbot coming soon..."

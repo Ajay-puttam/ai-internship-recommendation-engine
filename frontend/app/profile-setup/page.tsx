@@ -103,7 +103,7 @@ export default function ProfileSetupPage() {
                     ))}
                 </div>
 
-                <div className="glass rounded-2xl p-8 border border-white/10">
+                <div className="glass rounded-2xl p-8 border border-border dark:border-white/10">
                     <AnimatePresence mode="wait">
                         {/* Step 1: Basic Info */}
                         {step === 1 && (

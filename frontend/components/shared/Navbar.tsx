@@ -23,7 +23,7 @@ export default function Navbar({ isLoggedIn = false }: NavbarProps) {
     };
 
     return (
-        <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/10">
+        <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-border dark:border-white/10">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
                     {/* Logo */}
@@ -86,7 +86,7 @@ export default function Navbar({ isLoggedIn = false }: NavbarProps) {
 
             {/* Mobile Menu */}
             {menuOpen && (
-                <div className="md:hidden px-4 pb-4 space-y-2 border-t border-white/10">
+                <div className="md:hidden px-4 pb-4 space-y-2 border-t border-border dark:border-white/10">
                     {!isLoggedIn && (
                         <>
                             <Link href="/#how-it-works" className="block py-2 text-sm text-muted-foreground">How it Works</Link>

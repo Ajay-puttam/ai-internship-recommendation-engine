@@ -21,7 +21,7 @@ const DASHBOARD_CARDS = [
         color: "from-violet-500 to-purple-600",
         href: "/dashboard/recommendations",
         badge: "3 New",
-        badgeColor: "bg-violet-500/20 text-violet-300",
+        badgeColor: "bg-violet-100 text-violet-700 font-medium dark:bg-violet-500/20 dark:text-violet-300",
     },
     {
         title: "Skill Gap Insights",
@@ -30,7 +30,7 @@ const DASHBOARD_CARDS = [
         color: "from-blue-500 to-cyan-600",
         href: "/dashboard/skill-insights",
         badge: "Coming Soon",
-        badgeColor: "bg-blue-500/20 text-blue-300",
+        badgeColor: "bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300",
     },
     {
         title: "Resume Analysis",
@@ -39,7 +39,7 @@ const DASHBOARD_CARDS = [
         color: "from-emerald-500 to-teal-600",
         href: "/dashboard/resume",
         badge: "Coming Soon",
-        badgeColor: "bg-emerald-500/20 text-emerald-300",
+        badgeColor: "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300",
     },
     {
         title: "Career Chatbot",
@@ -48,7 +48,7 @@ const DASHBOARD_CARDS = [
         color: "from-rose-500 to-pink-600",
         href: "/dashboard/chatbot",
         badge: "Coming Soon",
-        badgeColor: "bg-rose-500/20 text-rose-300",
+        badgeColor: "bg-rose-100 text-rose-700 dark:bg-rose-500/20 dark:text-rose-300",
     },
 ];
 
@@ -102,7 +102,7 @@ export default function DashboardPage() {
                     >
                         <Link
                             href={card.href}
-                            className="block p-6 rounded-2xl glass border border-white/10 card-hover group"
+                            className="block p-6 rounded-2xl glass border border-border dark:border-white/10 card-hover group"
                         >
                             <div className="flex items-start justify-between mb-4">
                                 <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${card.color} flex items-center justify-center shadow-lg`}>
@@ -129,7 +129,7 @@ export default function DashboardPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="glass rounded-2xl border border-white/10 p-6"
+                className="glass rounded-2xl border border-border dark:border-white/10 p-6"
             >
                 <div className="flex items-center gap-2 mb-5">
                     <Clock className="w-4 h-4 text-violet-400" />

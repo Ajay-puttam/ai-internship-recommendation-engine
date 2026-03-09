@@ -11,7 +11,7 @@ export default function SkillInsightsPage() {
                 </h1>
                 <p className="text-muted-foreground text-sm mt-1">Discover what skills to learn for your dream role</p>
             </motion.div>
-            <div className="glass rounded-2xl border border-white/10 p-12 text-center">
+            <div className="glass rounded-2xl border border-border dark:border-white/10 p-12 text-center">
                 <Construction className="w-16 h-16 text-muted-foreground/30 mx-auto mb-4" />
                 <h2 className="text-xl font-semibold mb-2">Coming in Phase 2</h2>
                 <p className="text-muted-foreground text-sm max-w-md mx-auto">

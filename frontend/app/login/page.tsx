@@ -91,7 +91,7 @@ export default function LoginPage() {
                     </p>
                 </div>
 
-                <div className="glass rounded-2xl p-8 shadow-2xl border border-white/10">
+                <div className="glass rounded-2xl p-8 shadow-2xl border border-border dark:border-white/10">
                     {/* Tab switcher */}
                     <div className="flex rounded-xl bg-muted p-1 mb-8">
                         {(["login", "register"] as Tab[]).map((t) => (

@@ -129,7 +129,7 @@ export default function LandingPage() {
             className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto mb-10"
           >
             Get personalized internship recommendations based on your skills,
-            interests, and career goals — powered by advanced AI that
+            interests, and career goals - powered by advanced AI that
             understands <em>you</em>.
           </motion.p>
 
@@ -195,8 +195,7 @@ export default function LandingPage() {
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8 relative">
-            {/* Connecting line */}
-            <div className="absolute top-12 left-1/4 right-1/4 h-px bg-gradient-to-r from-violet-600/0 via-violet-600/50 to-violet-600/0 hidden md:block" />
+
 
             {STEPS.map((step, i) => (
               <motion.div
@@ -206,12 +205,12 @@ export default function LandingPage() {
                 viewport={{ once: true }}
                 custom={i}
                 variants={fadeUp}
-                className="relative text-center p-8 rounded-2xl glass border border-white/10 card-hover"
+                className="relative text-center p-8 rounded-2xl glass border border-border dark:border-white/10 card-hover"
               >
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-violet-600/20 border border-violet-600/30 mb-6">
                   <step.icon className="w-8 h-8 text-violet-400" />
                 </div>
-                <div className="absolute top-4 right-4 text-5xl font-black text-violet-600/10 select-none">
+                <div className="absolute top-4 right-4 text-5xl font-black text-violet-300 dark:text-violet-400/60 select-none">
                   {step.step}
                 </div>
                 <h3 className="text-xl font-semibold mb-3">{step.title}</h3>
@@ -251,7 +250,7 @@ export default function LandingPage() {
                 viewport={{ once: true }}
                 custom={i}
                 variants={fadeUp}
-                className="p-6 rounded-2xl glass border border-white/10 card-hover group"
+                className="p-6 rounded-2xl glass border border-border dark:border-white/10 card-hover group"
               >
                 <div
                   className={`inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br ${feature.color} mb-5 shadow-lg`}
@@ -313,7 +312,7 @@ export default function LandingPage() {
       </section>
 
       {/* ── Footer ────────────────────────────────────────── */}
-      <footer className="border-t border-white/10 py-12 px-4">
+      <footer className="border-t border-border dark:border-white/10 py-12 px-4">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2 font-bold text-lg">
             <div className="w-7 h-7 rounded-lg gradient-bg flex items-center justify-center">

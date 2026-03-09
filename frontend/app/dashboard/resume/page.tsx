@@ -11,7 +11,7 @@ export default function ResumeAnalysisPage() {
                 </h1>
                 <p className="text-muted-foreground text-sm mt-1">AI-powered NLP resume parsing</p>
             </motion.div>
-            <div className="glass rounded-2xl border border-white/10 p-12 text-center">
+            <div className="glass rounded-2xl border border-border dark:border-white/10 p-12 text-center">
                 <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-emerald-500/10 border-2 border-dashed border-emerald-500/30 flex items-center justify-center">
                     <Upload className="w-8 h-8 text-emerald-400/50" />
                 </div>
