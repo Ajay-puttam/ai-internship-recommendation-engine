@@ -48,6 +48,8 @@ app.include_router(users.router)
 app.include_router(profile.router)
 app.include_router(internships.router)
 app.include_router(recommendations.router)
+from app.routers import resume
+app.include_router(resume.router, prefix="/api")
 
 
 @app.get("/", tags=["Health"])

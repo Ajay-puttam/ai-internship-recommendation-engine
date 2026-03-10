@@ -312,6 +312,7 @@ def rank_results(
                 "company": str(row.get("company", "")),
                 "domain": str(row.get("domain", "")),
                 "location_region": str(row.get("location_region", "")),
+                "skills_required": str(row.get("skills_required", "")),
                 "similarity_score": float(row.get("similarity_score", 0.0)),
                 "skill_match_score": float(row.get("skill_match_score", 0.0)),
                 "final_score": float(row.get("final_score", 0.0)),

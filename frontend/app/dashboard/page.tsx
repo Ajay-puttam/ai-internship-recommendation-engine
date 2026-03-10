@@ -38,8 +38,8 @@ const DASHBOARD_CARDS = [
         icon: FileText,
         color: "from-emerald-500 to-teal-600",
         href: "/dashboard/resume",
-        badge: "Coming Soon",
-        badgeColor: "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300",
+        badge: "New",
+        badgeColor: "bg-emerald-100 text-emerald-700 font-medium dark:bg-emerald-500/20 dark:text-emerald-300",
     },
     {
         title: "Career Chatbot",

@@ -46,4 +46,18 @@ export const getRecommendations = () =>
         "/api/recommendations"
     );
 
+export const analyzeResume = (file: File) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    return api.post<{ extracted_skills: string[]; recommendations: Recommendation[] }>(
+        "/api/resume/analyze",
+        formData,
+        {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        }
+    );
+};
+
 export default api;
